@@ -87,7 +87,7 @@ func (r restaurantRepository) EditRestaurant(id primitive.ObjectID, restaurant *
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	opts := options.FindOneAndUpdate().SetUpsert(true)
+	opts := options.FindOneAndUpdate().SetUpsert(true).SetReturnDocument(options.After)
 	filter := bson.D{{Key: "_id", Value: id}}
 	update := bson.D{{Key: "$set", Value: restaurant}}
 
